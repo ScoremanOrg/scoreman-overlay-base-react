@@ -1,11 +1,13 @@
 import React from 'react';
-import { useScoreboard } from '../hooks/useScoreboard';
-
-export const Scoreboard = ({apiUrl, children}) => {
-    const [scoreboard] = useScoreboard();
-
-
-    return <div className="scoreboard">
-        <pre>{ JSON.stringify(scoreboard, null, 2) }</pre>
+import { Entrants } from './Entrants';
+export const Scoreboard = ({ scoreboard, children, ...rest }) => {
+    return <div className="scoreboard" {...rest}>
+        { scoreboard ?
+            <>
+                <Entrants entrants={scoreboard.entrants} />
+                <>{children}</>
+            </>
+            : { children }
+        }
     </div>
 };
