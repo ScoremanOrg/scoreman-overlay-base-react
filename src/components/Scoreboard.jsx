@@ -1,4 +1,5 @@
 import React from 'react';
+import { Commentators } from './Commentators';
 import { Entrants } from './Entrants';
 import { TournamentDetails } from './TournamentDetails';
 export const Scoreboard = ({ scoreboard, children, ...rest }) => {
@@ -12,6 +13,7 @@ export const Scoreboard = ({ scoreboard, children, ...rest }) => {
                     caster: scoreboard.caster,
                     streamer: scoreboard.streamer
                 }} />
+                <Commentators commentators={scoreboard.commentators} />
                 <>{children}</>
             </>
             : { children }
