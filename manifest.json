@@ -1,0 +1,7 @@
+{
+    "name": "React overlay",
+    "overlays": [{
+        "name": "React in game",
+        "url": "build/index.html"
+    }]
+}
