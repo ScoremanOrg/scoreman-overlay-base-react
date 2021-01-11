@@ -5,7 +5,7 @@ import { PlayerName } from './PlayerName';
 import { PlayerSponsor } from './PlayerSponsor';
 
 export const Player = ({ player, children, index, ...rest }) => {
-    const indexClassName = typeof index === 'number' ? ` player-${index}` : '';
+    const indexClassName = !!isNaN(index) ? ` player-${index}` : '';
 
     return <div className={`player${indexClassName}`} {...rest}>
         {

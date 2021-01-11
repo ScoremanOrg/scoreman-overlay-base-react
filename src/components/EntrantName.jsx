@@ -1,9 +1,7 @@
 import React from 'react';
 
-export const EntrantName = ({ name, index, children, ...rest }) => {
-    const indexClassName = index ? `entrant-name${index}` : '';
-
-    return <div className={`entrant-name${indexClassName}`} {...rest}>
+export const EntrantName = ({ name, children, ...rest }) => {
+    return <div className={`entrant-name`} {...rest}>
         {name}
         {children}
     </div>
