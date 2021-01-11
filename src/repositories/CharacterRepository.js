@@ -10,7 +10,7 @@ export class CharacterRepository extends BaseRepository {
 
     async get() {
         if (!this.config) {
-            this.config = await super.get(`config/${configId}.json`);
+            this.config = await super.get(`/config/${configId}.json`);
         } 
 
         return this.config;

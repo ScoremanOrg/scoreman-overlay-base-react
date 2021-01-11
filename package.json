@@ -35,5 +35,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://dserrano.duckdns.org/scoreman"
+  "homepage": "./",
+  "devDependencies": {
+    "http-proxy-middleware": "^1.0.6"
+  }
 }

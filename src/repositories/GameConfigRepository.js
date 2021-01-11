@@ -5,7 +5,7 @@ export class GameConfigRepository extends BaseRepository {
 
     async get() {
         if (!this.gameConfigs) {
-            this.gameConfigs = await super.get('config/games.json');
+            this.gameConfigs = await super.get('/config/games.json');
         }
 
         return this.gameConfigs;

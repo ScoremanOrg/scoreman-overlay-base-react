@@ -1,5 +1,7 @@
 export class BaseRepository {
-    baseUrl = './';
+    baseUrl = null;
+    config = null;
+    cache = {};
 
     constructor(apiUrl) {
         if (apiUrl) {
@@ -7,7 +9,23 @@ export class BaseRepository {
         }
     }
 
+    // https://stackoverflow.com/a/37954545
+    async fetchCached(call, options) {
+        if (!this.cache[call]) {
+            this.cache[call] = fetch(call, options);
+        }
+
+        return this.cache[call].then(r => r.clone());
+    }
+
     async getBasePath() {
+        // We do a call with the .. because we know we are inside the build folder
+        const config = await this.fetchCached('!serverconfig')
+            .then((res) => res.json());
+
+        this.config = config;
+        this.baseUrl = config.homepage;
+
         return this.baseUrl;
     }
 
