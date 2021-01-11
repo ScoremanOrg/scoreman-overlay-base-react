@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const GameArea = ({children}) => {
-    return <div class="game-area">
+    return <div className="game-area">
         {children}
     </div>
 }
