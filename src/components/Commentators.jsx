@@ -6,7 +6,7 @@ import { Commentator } from './Commentator';
 export const Commentators = ({ children }) => {
     const [commentators, setCommentators] = useScoreboard('commentators');
 
-    const renderDefaultCommentators = (commentators) => {
+    const defaultCommentatorsRender = (commentators) => {
         return (commentators || []).map((commentator, i) => (
             <Commentator commentator={commentator} index={i} key={i} />
         ));
@@ -14,7 +14,7 @@ export const Commentators = ({ children }) => {
 
     return <div className="commentators">
         <ChildFnComponent
-            defaultRender={() => renderDefaultCommentators(commentators)}
+            defaultRender={() => defaultCommentatorsRender(commentators)}
             fnArgs={{
                 commentators: commentators || [],
                 setCommentators

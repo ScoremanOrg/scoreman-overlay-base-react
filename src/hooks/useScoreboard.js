@@ -7,7 +7,7 @@ export const useScoreboard = (path) => {
 
     const set = (data) => {
         setScoreboard((scoreboard) => {
-            return dotProp.set(scoreboard, field, data);
+            return dotProp.set(scoreboard, path, data);
         })
     }
 

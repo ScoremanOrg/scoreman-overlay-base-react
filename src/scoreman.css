@@ -50,6 +50,10 @@
     height: 2.5ch;
 }
 
+.player-country-flag {
+    width: 2vw;
+}
+
 .game-area {
     flex-grow: 1;
 }

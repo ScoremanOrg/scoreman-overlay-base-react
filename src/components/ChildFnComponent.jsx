@@ -23,5 +23,5 @@ export const ChildFnComponent = ({ defaultRender, children, fnArgs }) => {
     }
 
     return childrenFnRender() ||
-        innerDefaultRender();
+        innerDefaultRender() || null;
 }

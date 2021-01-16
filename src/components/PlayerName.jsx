@@ -1,10 +1,17 @@
 import React from 'react';
+import { ChildFnComponent } from './ChildFnComponent';
 
-export const PlayerName = ({ name, index, children, ...rest }) => {
-    const indexClassName = !!isNaN(index) ? `player-name${index}` : '';
+export const PlayerName = ({ name, children, ...rest }) => {
+    function defaultPlayerNameRender() {
+        if (typeof name !== 'undefined') {
+            return name;
+        }    
+    }
 
-    return <div className={`player-name${indexClassName}`} {...rest}>
-        {name}
-        {children}
+    return <div className={`player-name`} {...rest}>
+        <ChildFnComponent defaultRender={() => defaultPlayerNameRender()}
+            fnArgs={{playerName: defaultPlayerNameRender()}}>
+            {children}
+        </ChildFnComponent>
     </div>
 }

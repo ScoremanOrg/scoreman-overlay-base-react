@@ -6,15 +6,17 @@ import { Entrant } from './Entrant';
 export const Entrants = ({ children }) => {
     const [entrants, setEntrants] = useScoreboard('entrants');
 
-    function renderEntrantsDefault(entrants) {
+    function defaultEntrantsRender(entrants) {
         return (entrants || []).map((entrant, i) => (
-            <Entrant entrant={entrant} index={i} key={i} />
+            <Entrant entrant={entrant}
+                displayName={(entrant.players || []).length > 1}
+                index={i} key={i} />
         ))
     }
 
     return <div className="entrants">
         <ChildFnComponent
-            defaultRender={() => renderEntrantsDefault(entrants)}
+            defaultRender={() => defaultEntrantsRender(entrants)}
             fnArgs={{
                 entrants: entrants || [],
                 setEntrants

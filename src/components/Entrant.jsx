@@ -1,20 +1,29 @@
 import React from 'react';
+import { ChildFnComponent } from './ChildFnComponent';
 import { EntrantName } from './EntrantName';
 import { Players } from './Players';
 import { Score } from './Score';
 
-export const Entrant = ({ entrant, children, index, ...rest }) => {
-    const indexClassName = !!isNaN(index) ? ` entrant-${index}` : '';
+export const Entrant = ({ entrant, displayName, children, index, ...rest }) => {
+    const indexClassName = typeof index === 'number' ? ` entrant-${index}` : '';
 
-    return <div className={`entrant${indexClassName}`} {...rest}>
-        {
-            entrant ? <>
+    function defaultEntrantRender() {
+        if (entrant) {
+            return <>
                 <Players players={entrant.players} />
                 <Score score={entrant.score} />
-                <EntrantName name={entrant.name} />
-                {children || null}
-            </> :
-                (children || null)
+                {displayName ? <EntrantName name={entrant.name} /> : null}
+            </>
+        } else {
+            return null;
         }
+        
+    }
+
+    return <div className={`entrant${indexClassName}`} {...rest}>
+        <ChildFnComponent defaultRender={() => defaultEntrantRender()}
+            fnArgs={{entrant}}>
+            {children}
+        </ChildFnComponent>
     </div>
 }

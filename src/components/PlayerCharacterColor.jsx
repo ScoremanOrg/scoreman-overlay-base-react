@@ -1,13 +1,36 @@
 import React from 'react';
-import { useScoreboard } from '../hooks/useScoreboard';
+import { ChildFnComponent } from './ChildFnComponent';
 
-export const PlayerCharacterColor = ({ entrantIndex, children, ...rest }) => {
-    const [color] = useScoreboard(`entrants.players[${entrantIndex}].color`);
+export const PlayerCharacterColor = ({
+    color,
+    displayBackground,
+    displayName,
+    children,
+    ...rest }) => {
 
-    return color ? <div style={{backgroundColor: color.hex}}
-        className={`player-character-color player-character-color-${color.id}`} {...rest}
-        data-color-hex={color.hex}>
-        <div className={`player-character-color-name`}>{color.name}</div>
-        {children}
-    </div> : (children || null)
+    const colorStyle = color && displayBackground ? 
+        {
+            backgroundColor: color.hex
+        } : {};
+
+    const playerColorClassName = color && (typeof color.id !== 'undefined') ?
+        ` player-character-color-${color.id}` : ''
+
+    function defaultPlayerCharacterColorRender() {
+        if (color && displayName) {
+            return <span className={`player-character-color-name`}>{color.name}</span>;
+        } else {
+            return null;
+        }
+    }
+
+    return <div style={colorStyle}
+        className={`player-character-color${playerColorClassName}`} {...rest}
+        data-color-hex={color && color.hex ? color.hex : ''}>
+        <ChildFnComponent defaultRender={() => defaultPlayerCharacterColorRender()}
+            fnArgs={{ color }}>
+            {children}
+        </ChildFnComponent>
+    </div>
+
 }

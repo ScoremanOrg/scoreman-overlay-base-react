@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useScoreboard } from '../hooks/useScoreboard';
+import React from 'react';
+import { ChildFnComponent } from './ChildFnComponent';
 
-export const Score = ({ entrantIndex, children, ...rest }) => {
-    const [score] = useScoreboard(`entrants.player[${entrantIndex}].score`);
+export const Score = ({ score, children, ...rest }) => {
+    function defaultScoreRender() {
+        if (typeof score === 'number') {
+            return score;
+        } else {
+            return null;
+        }
+    }
 
-    const indexClassName = typeof index === 'number' ? ` score-${entrantIndex}` : '';
-    return <div className={`score${indexClassName}`} {...rest}>
-        { score ? 
-            <>
-                {score}
-                {children}
-            </>
-            : (children || null)}
+    return <div className={`score`} {...rest}>
+        <ChildFnComponent defaultRender={() => defaultScoreRender()}
+            fnArgs={{score}}>
+            {children}
+        </ChildFnComponent>
     </div>
 }
