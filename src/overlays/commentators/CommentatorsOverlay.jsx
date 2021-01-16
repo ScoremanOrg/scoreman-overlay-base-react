@@ -1,9 +1,9 @@
 import React from 'react';
 import { Commentators } from '../../components/Commentators';
-import { Scoreboard } from '../../components/Scoreboard';
+import { Overlay } from '../../components/Overlay';
 
 export const CommentatorsOverlay = () => {
-    return <Scoreboard className='overlay overlay-commentators'>
+    return <Overlay id="commentators">
         <Commentators />
-    </Scoreboard>
+    </Overlay>;
 }
