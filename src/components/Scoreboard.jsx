@@ -1,32 +1,19 @@
 import React from 'react';
-import { useScoreboard } from '../hooks/useScoreboard';
-import { Commentators } from './Commentators';
-import { Entrants } from './Entrants';
-import { GameArea } from './GameArea';
-import { TournamentDetails } from './TournamentDetails';
+import { ScoreboardContext } from '../contexts/ScoreboardContext';
+import { useUpdatedScoreboard } from '../hooks/useUpdatedScoreboard';
+import { ChildFnComponent } from './ChildFnComponent';
 
 export const Scoreboard = ({ children, ...rest }) => {
-    const [scoreboard] = useScoreboard();
+    const [scoreboard, setScoreboard] = useUpdatedScoreboard();
 
-    return <div className="scoreboard" {...rest}>
-        {((children &&
-            (typeof children === 'function')) ?
-            children({scoreboard}) :
-            children)}
+    return <ScoreboardContext.Provider value={[scoreboard, setScoreboard]}>
+        <div className="scoreboard" {...rest}>
+            <ChildFnComponent
+                defaultRender={() => null}
+                fnArgs={{ scoreboard, setScoreboard }}>
 
-        {(!children && scoreboard) &&
-            <>
-                <Entrants entrants={scoreboard.entrants} />
-                <GameArea />
-                <Commentators commentators={scoreboard.commentators} />
-                <TournamentDetails tournament={{
-                    name: scoreboard.tournamentName,
-                    round: scoreboard.round,
-                    caster: scoreboard.caster,
-                    streamer: scoreboard.streamer
-                }} />
-                <>{children}</>
-            </>
-        }
-    </div>
+                {children}
+            </ChildFnComponent>
+        </div>
+    </ScoreboardContext.Provider>
 };

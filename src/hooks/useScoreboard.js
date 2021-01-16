@@ -1,35 +1,19 @@
-import { useEffect, useMemo, useState } from "react"
+import { useContext } from "react";
+import { ScoreboardContext } from "../contexts/ScoreboardContext";
+import dotProp from "dot-prop";
 
-import { ScoreboardRepository } from "../repositories/ScoreboardRepository";
+export const useScoreboard = (path) => {
+    const [scoreboard, setScoreboard] = useContext(ScoreboardContext);
 
-export const useScoreboard = (apiUrl, refreshTime=1000) => {
-    const [scoreboard, setScoreboard] = useState(null);
-
-    const scoreboardRepository = useMemo(() => new ScoreboardRepository(apiUrl), [apiUrl]);
-
-    useEffect(() => {
-        async function getScoreboard()  {
-            const freshScoreboard = await scoreboardRepository.get();
-            setScoreboard(freshScoreboard);
-        }
-
-        const timeoutId = window.setTimeout(() => getScoreboard(), refreshTime);
-
-        return () => {
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
-            }
-        }
-    }, [scoreboard, refreshTime, scoreboardRepository]);
-
-    /**
-     * Posts a new scoreboard to server
-     * @param {scoreboard} data the scoreboard to post
-     */
-    async function postNewScoreboard(data) {
-        const freshScoreboard = await scoreboardRepository.post(data);
-        setScoreboard(freshScoreboard);
+    const set = (data) => {
+        setScoreboard((scoreboard) => {
+            return dotProp.set(scoreboard, field, data);
+        })
     }
 
-    return [scoreboard, postNewScoreboard];
+    const get = () => {
+        return dotProp.get(scoreboard, path);
+    }
+
+    return [get(), set];
 }
