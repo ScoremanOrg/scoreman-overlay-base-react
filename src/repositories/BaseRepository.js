@@ -19,7 +19,6 @@ export class BaseRepository {
     }
 
     async getBasePath() {
-        // We do a call with the .. because we know we are inside the build folder
         const config = await this.fetchCached('!serverconfig')
             .then((res) => res.json());
 
