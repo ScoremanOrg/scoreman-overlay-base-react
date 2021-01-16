@@ -1,7 +1,12 @@
 {
     "name": "React overlay",
     "overlays": [{
-        "name": "React in game",
-        "url": "build/index.html"
+        "name": "In game (widescreen)",
+        "index": "build/index.html",
+        "url": "/ingame-widescreen"
+    },{
+        "name": "Commentary",
+        "index": "build/index.html",
+        "url": "/commentary"
     }]
 }
