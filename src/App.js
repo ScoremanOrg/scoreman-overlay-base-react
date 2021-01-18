@@ -9,7 +9,6 @@ const App = () => {
     const basePath = useScoremanBasePath();
 
     return basePath ? <div>
-        <div>SCOREMAN OVERLAY "{basePath || 'NO BASE PATH'}"</div>
         <Router basename={basePath}>
             <Switch>
                 <Route path="/ingame-widescreen">
