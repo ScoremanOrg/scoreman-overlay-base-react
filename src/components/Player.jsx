@@ -11,6 +11,7 @@ export const Player = ({ player, children, index, ...rest }) => {
     function defaultPlayerRender() {
         if (player) {
             return <>
+                {player.status ? <PlayerStatus status={player.status}/> : null}
                 <PlayerName name={player.name} />
                 <PlayerCharacter character={player.character} />
                 <PlayerCountry country={player.country} />
